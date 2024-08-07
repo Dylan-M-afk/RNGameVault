@@ -1,0 +1,28 @@
+{
+    "games": [
+      {
+        "name": "Half-Life 2",
+        "description": "Game by Valve",
+        "image": "./assets/HalfLife2Image.jpg",
+        "rating": 10,
+        "year": 2004,
+        "imageURL": "https://upload.wikimedia.org/wikipedia/en/2/25/Half-Life_2_cover.jpg"
+      },
+      {
+        "name": "Mario 64",
+        "description": "Game by Nintendo",
+        "image": "./assets/Mario64Image.jpg",
+        "rating": 7,
+        "year": 1996,
+        "imageURL": "https://upload.wikimedia.org/wikipedia/en/6/6a/Super_Mario_64_box_cover.jpg"
+      },
+      {
+        "name": "Hitman 2",
+        "description": "Game by IO Interactive",
+        "image": "./assets/Hitman2Image.jpg",
+        "rating": 8,
+        "year": 2018,
+        "imageURL": "https://upload.wikimedia.org/wikipedia/en/8/88/Hitman_2_%282018%29_cover.jpg"
+        }
+      ]
+  }
