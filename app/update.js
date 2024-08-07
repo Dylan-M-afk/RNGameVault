@@ -3,7 +3,7 @@ import { useSQLiteContext } from 'expo-sqlite';
 import { TextInput, View, StyleSheet, Pressable,ScrollView } from 'react-native';
 import Game from '../components/Game';
 import { ActivityIndicator, MD2Colors, Text, Button } from 'react-native-paper';
-
+import DropDown from 'react-native-paper-dropdown'
 
 export default function Page() {
   const db = useSQLiteContext();
@@ -11,8 +11,6 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [currentindex, switchindex] = useState(0);
   const [isAddingNewGame, setIsAddingNewGame] = useState(false);
-
-  // state for form inputs
   const [gameForm, setGameForm] = useState({
     name: '',
     year: '',
@@ -73,8 +71,8 @@ export default function Page() {
 
   return loading ? (
     <View style={styles.containerView}>
-      <ActivityIndicator animating={true} color={MD2Colors.red800} style={styles.centeredText}/>
-      <Text variant="displayMedium">Loading</Text>
+      <ActivityIndicator animating={true} color={MD2Colors.red800} style={styles.centeredText} />
+      <Text style={styles.loadingText}>Loading</Text>
     </View>
   ) : (
     <View style={styles.container}>
@@ -97,70 +95,98 @@ export default function Page() {
         </ScrollView>
       )}
 
-      <Text variant="headlineMedium">{isAddingNewGame ? "Add New Game" : "Edit Game"}</Text>
-      <TextInput style={styles.input} placeholder="Name" value={gameForm.name} onChangeText={(text) => handleFormChange('name', text)} />
-      <TextInput style={styles.input} placeholder="Year" value={gameForm.year} onChangeText={(text) => handleFormChange('year', text)} />
-      <TextInput style={styles.input} placeholder="Rating" value={gameForm.rating} onChangeText={(text) => handleFormChange('rating', text)} />
-      <TextInput style={styles.input} placeholder="Description" value={gameForm.description} onChangeText={(text) => handleFormChange('description', text)} />
-      <TextInput style={styles.input} placeholder="Image URL" value={gameForm.imageURL} onChangeText={(text) => handleFormChange('imageURL', text)} />
-        <View style={styles.inputContainer}>
-
-      <Button mode="contained" style={styles.button} onPress={submitForm}>
-        <Text variant="labelMedium" style={styles.text}>{isAddingNewGame ? "Add Game" : "Update Game"}</Text>
-      </Button>
-
-      <Button mode="contained" style={styles.button} onPress={() => setIsAddingNewGame(!isAddingNewGame)}>
-        <Text variant="labelMedium" style={styles.text}>{isAddingNewGame ? "Switch to Edit" : "Switch to Add"}</Text>
-      </Button>
-      </View>
-      {!isAddingNewGame && games.length > 0 && (
-        <Button mode="contained" style={styles.button} onPress={() => deleteGame(games[currentindex].name)}>
-          <Text variant="labelMedium" style={styles.text}>Delete Game</Text>
+      <Text style={styles.headline}>{isAddingNewGame ? "Add New Game" : "Edit Game"}</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={gameForm.name}
+        onChangeText={(text) => handleFormChange('name', text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Year"
+        value={gameForm.year}
+        onChangeText={(text) => handleFormChange('year', text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Rating"
+        value={gameForm.rating}
+        onChangeText={(text) => handleFormChange('rating', text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        value={gameForm.description}
+        onChangeText={(text) => handleFormChange('description', text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Image URL"
+        value={gameForm.imageURL}
+        onChangeText={(text) => handleFormChange('imageURL', text)}
+      />
+      <View style={styles.inputContainer}>
+        <Button mode="contained" style={styles.button} onPress={submitForm}>
+          <Text style={styles.buttonText}>{isAddingNewGame ? "Add Game" : "Update Game"}</Text>
         </Button>
-        
+        {!isAddingNewGame && games.length > 0 && (
+        <Button mode="contained" style={styles.button} onPress={() => deleteGame(games[currentindex].name)}>
+          <Text style={styles.buttonText}>Delete Game</Text>
+        </Button>
       )}
+
+      </View>
+      <Button mode="contained" style={styles.button} onPress={() => setIsAddingNewGame(!isAddingNewGame)}>
+          <Text style={styles.buttonText}>{isAddingNewGame ? "Switch to Edit Game Mode" : "Switch to Add Game Mode"}</Text>
+        </Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    header: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        marginBottom: 20
-    },
-    inputContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginHorizontal: 10,
-    },
-    inputLabel: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 20
-    },
-    input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 10,
-    },
-    centeredText: {
-      alignSelf: 'center',
-      paddingTop: 350
-    },
-    button: {
-      margin: 5,
-    },
-    text: {
-      color: 'white'
-    },
-    });
-    
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  containerView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headline: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginHorizontal: 10,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    width: '80%',
+  },
+  centeredText: {
+    alignSelf: 'center',
+    paddingTop: 350,
+  },
+  button: {
+    margin: 5,
+  },
+  buttonText: {
+    color: 'white',
+  },
+  loadingText: {
+    fontSize: 18,
+    marginTop: 10,
+  },
+});
