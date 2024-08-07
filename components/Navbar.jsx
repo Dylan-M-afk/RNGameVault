@@ -1,44 +1,48 @@
-import React from 'react'
-import { Pressable, Text, View, StyleSheet } from 'react-native'
-import {Link} from 'expo-router'
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Link, usePathname } from 'expo-router';
+import { Button } from 'react-native-paper';
 
 function Navbar() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Link href="/" asChild>
-            <Pressable style={styles.button}>
-              <Text>Home</Text>
-            </Pressable>
-          </Link>
-          <Link href="/update" asChild>
-            <Pressable style={styles.button}>
-              <Text>Update</Text>
-            </Pressable>
-          </Link>
-        </View>
+  const currentPath = usePathname();
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <Link href="/" asChild>
+        <Button
+            mode={currentPath === '/' ? 'contained' : 'outlined'}
+            style={styles.button}
+          >
+            Home
+          </Button>
+        </Link>
+        <Link href="/update" asChild>
+          <Button
+            mode={currentPath === '/update' ? 'contained' : 'outlined'}
+            style={styles.button}
+          >
+            Update
+          </Button>
+        </Link>
       </View>
-    )
-  }
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      paddingVertical: 20,
-      padding: 10,
-      backgroundColor: '#f0f0f0',
-      alignItems: 'center',
-    },
-    buttonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: 200,
-    },
-    button: {
-      padding: 10,
-      backgroundColor: '#ddd',
-      borderRadius: 5,
-    },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 5,
+    backgroundColor: '#f0f0f0',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+  },
+  button: {
+    margin: 5,
+  },
   })
 export default Navbar

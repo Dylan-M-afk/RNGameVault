@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import { TextInput, View, StyleSheet, Pressable,ScrollView } from 'react-native';
-import Button from '../components/Button';
 import Game from '../components/Game';
-import { ActivityIndicator, MD2Colors } from 'react-native-paper';
-import { Text } from 'react-native-paper';
+import { ActivityIndicator, MD2Colors, Text, Button } from 'react-native-paper';
+
 
 export default function Page() {
   const db = useSQLiteContext();
@@ -75,41 +74,51 @@ export default function Page() {
   return loading ? (
     <View style={styles.containerView}>
       <ActivityIndicator animating={true} color={MD2Colors.red800} style={styles.centeredText}/>
-      <Text style={styles.loading}>Loading!</Text>
+      <Text variant="displayMedium">Loading</Text>
     </View>
   ) : (
     <View style={styles.container}>
+      {!isAddingNewGame && games.length > 0 && <Game {...games[currentindex]} />}
+
       {!isAddingNewGame && (
         <ScrollView horizontal={true} style={{ flex: 1 }}>
-        <View style={styles.inputContainer}>
-          {games.map((game, index) => (
-            <Button key={index} label={game.name} onPress={() => switchindex(index)} isActive={currentindex === index} />
-          ))}
-        </View>
+          <View style={styles.inputContainer}>
+            {games.map((game, index) => (
+              <Button
+                key={index}
+                mode={currentindex === index ? 'contained' : 'outlined'}
+                onPress={() => switchindex(index)}
+                style={styles.button}
+              >
+                {game.name}
+              </Button>
+            ))}
+          </View>
         </ScrollView>
       )}
-      {!isAddingNewGame && games.length > 0 && <Game {...games[currentindex]} />}
-      <Text>{isAddingNewGame ? "Add New Game" : "Edit Game"}</Text>
+
+      <Text variant="headlineMedium">{isAddingNewGame ? "Add New Game" : "Edit Game"}</Text>
       <TextInput style={styles.input} placeholder="Name" value={gameForm.name} onChangeText={(text) => handleFormChange('name', text)} />
       <TextInput style={styles.input} placeholder="Year" value={gameForm.year} onChangeText={(text) => handleFormChange('year', text)} />
       <TextInput style={styles.input} placeholder="Rating" value={gameForm.rating} onChangeText={(text) => handleFormChange('rating', text)} />
       <TextInput style={styles.input} placeholder="Description" value={gameForm.description} onChangeText={(text) => handleFormChange('description', text)} />
       <TextInput style={styles.input} placeholder="Image URL" value={gameForm.imageURL} onChangeText={(text) => handleFormChange('imageURL', text)} />
-        
-      <Pressable style={styles.submitButton} onPress={submitForm}>
-        <Text style={styles.submitButtonText}>{isAddingNewGame ? "Add Game" : "Update Game"}</Text>
-      </Pressable>
+        <View style={styles.inputContainer}>
 
-      <Pressable style={styles.submitButton} onPress={() => setIsAddingNewGame(!isAddingNewGame)}>
-        <Text style={styles.submitButtonText}>{isAddingNewGame ? "Switch to Edit" : "Switch to Add"}</Text>
-      </Pressable>
+      <Button mode="contained" style={styles.button} onPress={submitForm}>
+        <Text variant="labelMedium" style={styles.text}>{isAddingNewGame ? "Add Game" : "Update Game"}</Text>
+      </Button>
 
+      <Button mode="contained" style={styles.button} onPress={() => setIsAddingNewGame(!isAddingNewGame)}>
+        <Text variant="labelMedium" style={styles.text}>{isAddingNewGame ? "Switch to Edit" : "Switch to Add"}</Text>
+      </Button>
+      </View>
       {!isAddingNewGame && games.length > 0 && (
-      <Pressable style={styles.submitButton} onPress={() => deleteGame(games[currentindex].name)}>
-        <Text style={styles.submitButtonText}>Delete Game</Text>
-      </Pressable>
-    )}
-      
+        <Button mode="contained" style={styles.button} onPress={() => deleteGame(games[currentindex].name)}>
+          <Text variant="labelMedium" style={styles.text}>Delete Game</Text>
+        </Button>
+        
+      )}
     </View>
   );
 }
@@ -141,31 +150,17 @@ const styles = StyleSheet.create({
       margin: 12,
       borderWidth: 1,
       padding: 10,
-    },
-    submitButton: {
-      backgroundColor: '#007BFF',
-      padding: 10,
-      margin: 15,
-      height: 40,
-      
-    },
-    submitButtonText: {
-      color: 'white'
-    },
-    loading: {
-      fontSize: 25,
-      fontWeight: 'bold',
-      alignSelf: 'center',
-      paddingTop: 10
-    },
-    center : {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      borderRadius: 10,
     },
     centeredText: {
       alignSelf: 'center',
       paddingTop: 350
-    }
+    },
+    button: {
+      margin: 5,
+    },
+    text: {
+      color: 'white'
+    },
     });
     

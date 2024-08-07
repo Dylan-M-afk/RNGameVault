@@ -1,44 +1,38 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Card, Title, Paragraph } from 'react-native-paper';
 
 function Game({ name, imageURL, description, year, rating }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.gameTitle}>{name}</Text>
-      <Image source={{ uri: imageURL }} style={styles.image} />
-      <Text style={styles.gameInfo}>{description}</Text>
-      <Text style={styles.gameInfo}>Year: {year}</Text>
-      <Text style={styles.gameInfo}>Rating: {rating}</Text>
-    </View>
-    );
-  };
+    <Card style={styles.container}>
+      <Card.Cover source={{ uri: imageURL }} style={styles.image} />
+      <Card.Content>
+        <Title style={styles.gameTitle}>{name}</Title>
+        <Paragraph style={styles.gameInfo}>{description}</Paragraph>
+        <Paragraph style={styles.gameInfo}>Year: {year}</Paragraph>
+        <Paragraph style={styles.gameInfo}>Rating: {rating}</Paragraph>
+      </Card.Content>
+    </Card>
+  );
+}
 
 const styles = StyleSheet.create( {
-    container: {
-        flex: 1,
-        backgroundColor: '#f8f8f8',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-        margin: 20,
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5,
-    },
-    gameTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        color: '#333',
-    },
-    gameInfo: {
-        fontSize: 18,
-        marginBottom: 5,
-        color: '#666',
-    },
+  container: {
+    margin: 25,
+    borderRadius: 10,
+    elevation: 5,
+  },
+  gameTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333',
+  },
+  gameInfo: {
+    fontSize: 18,
+    marginBottom: 5,
+    color: '#666',
+  },
     image: {
         width: 320,
         height: 440,
