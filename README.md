@@ -1,8 +1,5 @@
 <a name="readme-top"></a>
 
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <br />
 
   <h3 align="center">React Native Game Vault</h3>
