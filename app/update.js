@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import { TextInput, View, StyleSheet, Pressable,ScrollView } from 'react-native';
+import { TextInput, View, StyleSheet,ScrollView } from 'react-native';
 import Game from '../components/Game';
-import { ActivityIndicator, MD2Colors, Text, Button } from 'react-native-paper';
-import DropDown from 'react-native-paper-dropdown'
+import { ActivityIndicator, MD2Colors, Text, Button, List } from 'react-native-paper';
+
 
 export default function Page() {
   const db = useSQLiteContext();
