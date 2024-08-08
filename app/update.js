@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import { TextInput, View, StyleSheet,ScrollView } from 'react-native';
+import { TextInput, View, StyleSheet, ScrollView } from 'react-native';
 import Game from '../components/Game';
 import { ActivityIndicator, MD2Colors, Text, Button, List } from 'react-native-paper';
-
 
 export default function Page() {
   const db = useSQLiteContext();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentindex, switchindex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isAddingNewGame, setIsAddingNewGame] = useState(false);
   const [gameForm, setGameForm] = useState({
     name: '',
@@ -29,24 +28,30 @@ export default function Page() {
   }, []);
 
   const addGameToDB = async (name, year, rating, description, imageURL) => {
-    await db.runAsync(`INSERT INTO games (name, year, rating, description, imageURL) VALUES (?, ?, ?, ?, ?)`, name, year, rating, description, imageURL);
-  }
+    await db.runAsync(
+      `INSERT INTO games (name, year, rating, description, imageURL) VALUES (?, ?, ?, ?, ?)`,
+      name, year, rating, description, imageURL
+    );
+  };
 
-  const updategameInDB = async (name, year, rating, description, imageURL, currentGameName) => {
-    await db.runAsync(`UPDATE games SET name = ?, year = ?, rating = ?, description = ?, imageURL = ? WHERE name = ?`, name, year, rating, description, imageURL, currentGameName);
-  }
+  const updateGameInDB = async (name, year, rating, description, imageURL, currentGameName) => {
+    await db.runAsync(
+      `UPDATE games SET name = ?, year = ?, rating = ?, description = ?, imageURL = ? WHERE name = ?`,
+      name, year, rating, description, imageURL, currentGameName
+    );
+  };
 
   const removeFromDB = async (currentGameName) => {
     await db.runAsync(`DELETE FROM games WHERE name = ?`, currentGameName);
-  }
+  };
 
   const deleteGame = async (currentGameName) => {
-    setLoading(true)
+    setLoading(true);
     await removeFromDB(currentGameName);
     const updatedGames = await db.getAllAsync('SELECT * FROM games');
     setGames(updatedGames);
-    switchindex(0);
-    setLoading(false)
+    setCurrentIndex(0);
+    setLoading(false);
   };
 
   const handleFormChange = (key, value) => {
@@ -61,12 +66,14 @@ export default function Page() {
     if (isAddingNewGame) {
       await addGameToDB(gameForm.name, gameForm.year, gameForm.rating, gameForm.description, gameForm.imageURL);
     } else {
-      await updategameInDB(gameForm.name, gameForm.year, gameForm.rating, gameForm.description, gameForm.imageURL, games[currentindex].name);
+      await updateGameInDB(
+        gameForm.name, gameForm.year, gameForm.rating, gameForm.description, gameForm.imageURL,
+        games[currentIndex].name
+      );
     }
-    // Reload games after update
     const result = await db.getAllAsync('SELECT * FROM games');
     setGames(result);
-    setIsAddingNewGame(false); // Reset to editing mode after submission
+    setIsAddingNewGame(false);
   };
 
   return loading ? (
@@ -76,26 +83,26 @@ export default function Page() {
     </View>
   ) : (
     <View style={styles.container}>
-      {!isAddingNewGame && games.length > 0 && <Game {...games[currentindex]} />}
+      {!isAddingNewGame && games.length > 0 && <Game {...games[currentIndex]} />}
 
       {!isAddingNewGame && (
         <ScrollView horizontal={true} style={{ flex: 1 }}>
           <View style={styles.inputContainer}>
-          <List.Section>
-            <List.Accordion title="Games">
-            {games.map((game, index) => (
-              <List.Item
-                key={index}
-                title={game.name}
-                onPress={() => switchindex(index)}
-                style={styles.button}
-                left={props => (
-                  <List.Icon {...props} icon={currentindex === index ? 'check-circle' : 'circle-outline'} />
-                )}
-              />
-            ))}
-            </List.Accordion>
-          </List.Section>
+            <List.Section>
+              <List.Accordion title="Games">
+                {games.map((game, index) => (
+                  <List.Item
+                    key={index}
+                    title={game.name}
+                    onPress={() => setCurrentIndex(index)}
+                    style={styles.button}
+                    left={props => (
+                      <List.Icon {...props} icon={currentIndex === index ? 'check-circle' : 'circle-outline'} />
+                    )}
+                  />
+                ))}
+              </List.Accordion>
+            </List.Section>
           </View>
         </ScrollView>
       )}
@@ -136,15 +143,14 @@ export default function Page() {
           <Text style={styles.buttonText}>{isAddingNewGame ? "Add Game" : "Update Game"}</Text>
         </Button>
         {!isAddingNewGame && games.length > 0 && (
-        <Button mode="contained" style={styles.button} onPress={() => deleteGame(games[currentindex].name)}>
-          <Text style={styles.buttonText}>Delete Game</Text>
-        </Button>
-      )}
-
+          <Button mode="contained" style={styles.button} onPress={() => deleteGame(games[currentIndex].name)}>
+            <Text style={styles.buttonText}>Delete Game</Text>
+          </Button>
+        )}
       </View>
       <Button mode="contained" style={styles.button} onPress={() => setIsAddingNewGame(!isAddingNewGame)}>
-          <Text style={styles.buttonText}>{isAddingNewGame ? "Switch to Edit Game Mode" : "Switch to Add Game Mode"}</Text>
-        </Button>
+        <Text style={styles.buttonText}>{isAddingNewGame ? "Switch to Edit Game Mode" : "Switch to Add Game Mode"}</Text>
+      </Button>
     </View>
   );
 }
