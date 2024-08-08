@@ -5,7 +5,7 @@
   <h3 align="center">React Native Game Vault</h3>
 
   <p align="center">
-    A top 3 list application built with Expo, React Native, SQLite
+    A list application built with Expo, React Native, SQLite
     <br />
     <a href="https://github.com/Dylan-M-afk/RNGameVault/issues">Report Bug</a>
     ·
