@@ -72,7 +72,7 @@ export default function Page() {
   return loading ? (
     <View style={styles.containerView}>
       <ActivityIndicator animating={true} color={MD2Colors.red800} style={styles.centeredText} />
-      <Text style={styles.loadingText}>Loading</Text>
+      <Text variant="displayMedium">Loading</Text>
     </View>
   ) : (
     <View style={styles.container}>
@@ -81,16 +81,21 @@ export default function Page() {
       {!isAddingNewGame && (
         <ScrollView horizontal={true} style={{ flex: 1 }}>
           <View style={styles.inputContainer}>
+          <List.Section>
+            <List.Accordion title="Games">
             {games.map((game, index) => (
-              <Button
+              <List.Item
                 key={index}
-                mode={currentindex === index ? 'contained' : 'outlined'}
+                title={game.name}
                 onPress={() => switchindex(index)}
                 style={styles.button}
-              >
-                {game.name}
-              </Button>
+                left={props => (
+                  <List.Icon {...props} icon={currentindex === index ? 'check-circle' : 'circle-outline'} />
+                )}
+              />
             ))}
+            </List.Accordion>
+          </List.Section>
           </View>
         </ScrollView>
       )}
@@ -184,9 +189,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-  },
-  loadingText: {
-    fontSize: 18,
-    marginTop: 10,
-  },
+  }
 });
