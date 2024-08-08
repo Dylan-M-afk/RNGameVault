@@ -1,9 +1,11 @@
 <a name="readme-top"></a>
 
-<br />
-
+<div align="center">
+  <br />
+  <img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Logo.jpeg?raw=true" width="256" height="256" />
+  <br>
   <h3 align="center">React Native Game Vault</h3>
-
+  
   <p align="center">
     A list application built with Expo, React Native, SQLite
     <br />
@@ -30,7 +32,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -40,7 +41,7 @@ This app was built to practice creating React Native applications with persisten
 
 ### Key Features
 
-- **View Game List**: Display a list of the top 3 games.
+- **View Game List**: Display a list of games based on rating.
 - **Add New Game**: Add a new game to the list with a name and details.
 - **Update Game**: Modify the details of an existing game.
 - **Delete Game**: Remove a game from the list.
@@ -52,15 +53,24 @@ This app was built to practice creating React Native applications with persisten
 
 - [React Native](https://reactnative.dev/) - A framework for building native apps using React.
 - [SQLite](https://www.sqlite.org/index.html) - A relational database.
+- [Expo](https://expo.dev/)
+- [React Native Paper](https://reactnativepaper.com/)
 
 
 
 
-<!-- GETTING STARTED -->
+
 ## Getting Started
 
-TODO
-
+The app has a simple interface which displays games in order based on rating.
+<br><br>
+<img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Main%20App%201.png" width="200" />
+<br>
+<img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Main%20App%202.png" width="200" />
+<br> <br>
+You can also update or add items on the update page
+<br> <br>
+<img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Update.png" width="200" />
 ### Prerequisites
 
 All Prerequisites can be installed with npm
@@ -70,12 +80,9 @@ npm install
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 Clone the repository
-
-
 ```sh
-git clone https://github.com/Dylan-M-afk/RNGameVault/
+git clone https://github.com/Dylan-M-afk/RNGameVault.git
 ```
 Navigate to the project directory
 ```sh
@@ -90,9 +97,6 @@ Start the app
 ```sh
 npx expo start
 ```
-
-
-## Usage
 
 
 ## License
