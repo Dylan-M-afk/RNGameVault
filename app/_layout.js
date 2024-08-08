@@ -13,7 +13,6 @@ import { PaperProvider } from 'react-native-paper';
 const setupDB = async (db) => {
     await db.execAsync(`
         PRAGMA journal_mode = 'wal';
-        DROP TABLE IF EXISTS games;
         CREATE TABLE IF NOT EXISTS games (
             name TEXT PRIMARY KEY NOT NULL,
             year TEXT NOT NULL,
