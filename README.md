@@ -1,9 +1,11 @@
 <a name="readme-top"></a>
 
-<br />
-
+<div align="center">
+  <br />
+  <img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Logo.jpeg?raw=true" width="256" height="256" />
+  <br>
   <h3 align="center">React Native Game Vault</h3>
-
+  
   <p align="center">
     A list application built with Expo, React Native, SQLite
     <br />
@@ -56,11 +58,18 @@ This app was built to practice creating React Native applications with persisten
 
 
 
-<!-- GETTING STARTED -->
+
 ## Getting Started
 
-TODO
-
+The app has a simple interface which displays games in order based on rating.
+<br>
+<img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Main%20App%201.png" width="200" />
+<br>
+<img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Main%20App%202.png" width="200" />
+<br>
+You can also update or add items on the update page
+<br>
+<img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Update.png" width="200" />
 ### Prerequisites
 
 All Prerequisites can be installed with npm
@@ -75,7 +84,7 @@ Clone the repository
 
 
 ```sh
-git clone https://github.com/Dylan-M-afk/RNGameVault/
+git clone https://github.com/Dylan-M-afk/RNGameVault.git
 ```
 Navigate to the project directory
 ```sh
