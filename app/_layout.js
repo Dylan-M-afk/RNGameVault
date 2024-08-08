@@ -1,10 +1,15 @@
 import { Slot } from 'expo-router';
 import Navbar from '../components/Navbar';
-import { useState, useContext } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import {SQLiteProvider, useSQLiteContext, SQLiteDatabase} from 'expo-sqlite'
+import { useState } from 'react';
+import { StyleSheet,  ScrollView } from 'react-native';
+import {SQLiteProvider} from 'expo-sqlite'
 import { PaperProvider } from 'react-native-paper';
 
+/**
+ * Sets up the SQLite database by creating the necessary tables and inserting initial data.
+ * 
+ * @param {SQLiteDatabase} db - The SQLite database instance.
+ */
 const setupDB = async (db) => {
     await db.execAsync(`
         PRAGMA journal_mode = 'wal';
@@ -32,6 +37,10 @@ const setupDB = async (db) => {
     }
 };
 
+/**
+ * The main layout component for the Home screen.
+ * Uses both the SQLiteProvider and PaperProvider to provide database and UI functionality.
+ */
 export default function HomeLayout() {
     const [game, setGame] = useState(null);
 

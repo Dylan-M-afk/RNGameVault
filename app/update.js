@@ -4,6 +4,12 @@ import { TextInput, View, StyleSheet, ScrollView } from 'react-native';
 import Game from '../components/Game';
 import { ActivityIndicator, MD2Colors, Text, Button, List } from 'react-native-paper';
 
+/**
+ * The update page component.
+ * 
+ * This component fetches game data from an SQLite database, displays a selection list of games,
+ * and allows users to add, edit, or delete games from the database.
+ */
 export default function Page() {
   const db = useSQLiteContext();
   const [games, setGames] = useState([]);
@@ -18,6 +24,9 @@ export default function Page() {
     imageURL: '',
   });
 
+  /**
+   * Fetches all games from the database and updates the state.
+   */
   useEffect(() => {
     async function fetchData() {
       const result = await db.getAllAsync('SELECT * FROM games');
@@ -27,6 +36,14 @@ export default function Page() {
     fetchData();
   }, []);
 
+  /**
+   * Adds a new game to the database.
+   * @param {string} name - The name of the game.
+   * @param {string} year - The release year of the game.
+   * @param {string} rating - The rating of the game.
+   * @param {string} description - The description of the game.
+   * @param {string} imageURL - The image URL of the game.
+   */
   const addGameToDB = async (name, year, rating, description, imageURL) => {
     await db.runAsync(
       `INSERT INTO games (name, year, rating, description, imageURL) VALUES (?, ?, ?, ?, ?)`,
@@ -34,6 +51,15 @@ export default function Page() {
     );
   };
 
+  /**
+   * Updates an existing game in the database by name.
+   * @param {string} name - The new name of the game.
+   * @param {string} year - The new release year of the game.
+   * @param {string} rating - The new rating of the game.
+   * @param {string} description - The new description of the game.
+   * @param {string} imageURL - The new image URL of the game.
+   * @param {string} currentGameName - The current name of the game being updated.
+   */
   const updateGameInDB = async (name, year, rating, description, imageURL, currentGameName) => {
     await db.runAsync(
       `UPDATE games SET name = ?, year = ?, rating = ?, description = ?, imageURL = ? WHERE name = ?`,
@@ -41,10 +67,19 @@ export default function Page() {
     );
   };
 
+  /**
+   * Removes a game from the database by its name.
+   * @param {string} currentGameName - The name of the game to be removed.
+   */
   const removeFromDB = async (currentGameName) => {
     await db.runAsync(`DELETE FROM games WHERE name = ?`, currentGameName);
   };
 
+  
+  /**
+   * Deletes a game and updates the state accordingly.
+   * @param {string} currentGameName - The name of the game to be deleted.
+   */
   const deleteGame = async (currentGameName) => {
     setLoading(true);
     await removeFromDB(currentGameName);
@@ -54,10 +89,18 @@ export default function Page() {
     setLoading(false);
   };
 
+  /**
+   * Handles changes in the game form inputs.
+   * @param {string} key - The key of the form field being changed.
+   * @param {string} value - The new value of the form field.
+   */
   const handleFormChange = (key, value) => {
     setGameForm(prev => ({ ...prev, [key]: value }));
   };
 
+  /**
+ * Submits the game form, either adding a new game or updating an existing one.
+ */
   const submitForm = async () => {
     if (!gameForm.name || !gameForm.year || !gameForm.rating || !gameForm.description || !gameForm.imageURL) {
       alert('All fields are required!');
@@ -76,6 +119,10 @@ export default function Page() {
     setIsAddingNewGame(false);
   };
 
+  /**
+   * Renders the component.
+   * Displays a loading indicator if data is being loaded, otherwise displays the game list and form.
+   */
   return loading ? (
     <View style={styles.containerView}>
       <ActivityIndicator animating={true} color={MD2Colors.red800} style={styles.centeredText} />

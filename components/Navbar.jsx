@@ -3,6 +3,10 @@ import { View, StyleSheet } from 'react-native';
 import { Link, usePathname } from 'expo-router';
 import { Button } from 'react-native-paper';
 
+/**
+ * Navbar component that displays navigation buttons.
+ * Highlights the button corresponding to the current path.
+ */
 function Navbar() {
   const currentPath = usePathname();
 

@@ -2,6 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 
+/**
+ * This component displays a card with information about a game, including its name, image, description, year, and rating.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {string} props.name - The name of the game.
+ * @param {string} props.imageURL - The URL of the game's image.
+ * @param {string} props.description - The description of the game.
+ * @param {number} props.year - The release year of the game.
+ * @param {number} props.rating - The rating of the game.
+ */
 function Game({ name, imageURL, description, year, rating }) {
   return (
     <Card style={styles.container}>
