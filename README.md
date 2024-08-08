@@ -41,7 +41,7 @@ This app was built to practice creating React Native applications with persisten
 
 ### Key Features
 
-- **View Game List**: Display a list of the top 3 games.
+- **View Game List**: Display a list of games based on rating.
 - **Add New Game**: Add a new game to the list with a name and details.
 - **Update Game**: Modify the details of an existing game.
 - **Delete Game**: Remove a game from the list.
