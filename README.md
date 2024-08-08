@@ -32,7 +32,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -54,6 +53,8 @@ This app was built to practice creating React Native applications with persisten
 
 - [React Native](https://reactnative.dev/) - A framework for building native apps using React.
 - [SQLite](https://www.sqlite.org/index.html) - A relational database.
+- [Expo](https://expo.dev/)
+- [React Native Paper](https://reactnativepaper.com/)
 
 
 
@@ -62,13 +63,13 @@ This app was built to practice creating React Native applications with persisten
 ## Getting Started
 
 The app has a simple interface which displays games in order based on rating.
-<br>
+<br><br>
 <img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Main%20App%201.png" width="200" />
 <br>
 <img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Main%20App%202.png" width="200" />
-<br>
+<br> <br>
 You can also update or add items on the update page
-<br>
+<br> <br>
 <img src="https://github.com/Dylan-M-afk/RNGameVault/blob/master/assets/Screenshots/Update.png" width="200" />
 ### Prerequisites
 
@@ -79,10 +80,7 @@ npm install
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 Clone the repository
-
-
 ```sh
 git clone https://github.com/Dylan-M-afk/RNGameVault.git
 ```
@@ -99,9 +97,6 @@ Start the app
 ```sh
 npx expo start
 ```
-
-
-## Usage
 
 
 ## License
